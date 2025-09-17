@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "../include/task.h"
 #include "../include/utils.h"
-#include "../include/scheduler.h"
+#include "../include/sched_new.h"
 
 int main(int argc, char* argv[]) 
 {
@@ -22,15 +22,11 @@ int main(int argc, char* argv[])
         return -2;
     }
 
-
-    char buffer[256];
-    while (fgets(buffer, sizeof(buffer), task_file) != NULL) num_tasks++;
-
-    num_tasks--; //the first line contains headings so subtract 1
-    rewind(task_file); //rewind the file stream 
+    
+    fscanf(task_file,"%d",&num_tasks); 
 
     Task tasks[num_tasks];
-    fgets(buffer, sizeof(buffer), task_file); //move the stream to the next line
+    
     for(int i = 0; i < num_tasks; i++)
     {
 
