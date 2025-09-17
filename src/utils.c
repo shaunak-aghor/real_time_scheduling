@@ -4,6 +4,9 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
+#include <time.h>
+
 //calculate gcd of num1 and num2
 int gcd(int num1, int num2)
 {
@@ -88,22 +91,37 @@ bool schedulability(Task tasks[], int num_tasks, char _type)
 
 void print_taskset(Task tasks[], int num_tasks)
 {
-    printf("T#\tP\tC\tD\n");
+    printf("T#\tA\tP\tC\tD\n");
     for(int i = 0; i < num_tasks; i++)
     {
-        printf("T%d\t%d\t%d\t%d\n",i,tasks[i].period,tasks[i].execution_time,tasks[i].deadline);
+        printf("T%d\t%d\t%d\t%d\t%d\n",i,tasks[i].arrival_time,tasks[i].period,tasks[i].execution_time,tasks[i].relative_deadline);
     }
 }
 
 
-void plot_timeline(int schedule_log[],int total_time)
+void plot_timeline(int schedule_log[][2], int total_time)
 {
     for(int i = 0; i < total_time; i++)
     {
-        if(schedule_log[i] != -1)
-        printf("T%d\t",schedule_log[i]);
+        if(schedule_log[i][0] != -1)
+        printf("J%d,%d\t",schedule_log[i][0],schedule_log[i][1]);
         else
         printf("IDLE\t");
     }
     printf("\n");
+}
+
+
+Job* allocate_job(Task* task, int cur_time)
+{
+    //srand(time(NULL));
+
+    Job* job = (Job*) malloc(sizeof(Job));
+    
+    job->absolute_deadline = cur_time + task->relative_deadline + task->arrival_time;
+    job->actual_execution_time = task->execution_time; //(rand() % (task.execution_time  + 1));
+    job->job_task = task;
+    job->remaining_execution_time = job->actual_execution_time;
+
+    return job;
 }

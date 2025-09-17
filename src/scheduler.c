@@ -52,7 +52,7 @@ void earliest_deadline_first_scheduler(Task tasks[], int num_tasks, int* timelin
     for(int i = 0; i < num_tasks; i++)
     {
         remaining_time[i] = 0;
-        next_deadlines[i] = tasks[i].deadline;
+        next_deadlines[i] = tasks[i].relative_deadline;
     }
 
     // Main simulation loop
@@ -62,7 +62,7 @@ void earliest_deadline_first_scheduler(Task tasks[], int num_tasks, int* timelin
         for (int i = 0; i < num_tasks; i++) {
             if (tick % tasks[i].period == 0) {
                 remaining_time[i] = tasks[i].execution_time;
-                next_deadlines[i] = tick + tasks[i].deadline;
+                next_deadlines[i] = tick + tasks[i].relative_deadline;
             }
         }
 
@@ -91,3 +91,5 @@ void earliest_deadline_first_scheduler(Task tasks[], int num_tasks, int* timelin
         }
     }
 }
+
+

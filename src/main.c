@@ -34,30 +34,44 @@ int main(int argc, char* argv[])
     for(int i = 0; i < num_tasks; i++)
     {
 
-        int period,execution_time,deadline;
+        int arrival_time,period,execution_time,deadline;
 
-        fscanf(task_file,"%d\t%d\t%d\n",&period,&execution_time,&deadline);
+        fscanf(task_file,"%d\t%d\t%d\t%d\n",&arrival_time,&period,&execution_time,&deadline);
+        tasks[i].arrival_time = arrival_time;
         tasks[i].period = period;
         tasks[i].execution_time = execution_time;
-        tasks[i].deadline = deadline;
+        tasks[i].relative_deadline = deadline;
+        tasks[i].task_id = i;
+        tasks[i].next_arrival_time = tasks[i].arrival_time;
+        tasks[i].instance_counter = 0;
+                
     }
 
     print_taskset(tasks,num_tasks);
     printf("================================================================\n");
-    if(schedulability(tasks,num_tasks,'F'))
+    schedulability(tasks,num_tasks,'F');
     {
         int hyperperiod = calculate_hyperperiod(tasks, num_tasks);
-        int timeline[hyperperiod];
+        int timeline[hyperperiod][2];
         rate_monotonic_scheduler(tasks,num_tasks,timeline);
         plot_timeline(timeline,hyperperiod);
     }
     printf("================================================================\n");
-    if(schedulability(tasks,num_tasks,'D'))
+
+    
+    for(int i = 0; i < num_tasks; i++)
+    {
+        tasks[i].next_arrival_time = tasks[i].arrival_time;
+        tasks[i].instance_counter = 0;
+    }
+
+    schedulability(tasks,num_tasks,'D');
     {
         int hyperperiod = calculate_hyperperiod(tasks, num_tasks);
-        int timeline[hyperperiod];
+        int timeline[hyperperiod][2];
         earliest_deadline_first_scheduler(tasks,num_tasks,timeline);
         plot_timeline(timeline,hyperperiod);
     }
+
 
 }
