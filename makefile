@@ -1,5 +1,6 @@
 
 default: ./src/utils.o ./src/sched_new.o ./src/main.o ./src/priority_queue.o
+	mkdir -p ./bin
 	gcc -o ./bin/sched ./src/utils.o ./src/sched_new.o ./src/main.o ./src/priority_queue.o -lm
 
 utils.o: ./src/utils.c
