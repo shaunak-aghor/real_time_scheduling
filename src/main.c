@@ -39,7 +39,7 @@ int main(int argc, char* argv[])
         tasks[i].relative_deadline = deadline;
         tasks[i].task_id = i;
         tasks[i].next_arrival_time = tasks[i].arrival_time;
-        tasks[i].instance_counter = 0;
+        tasks[i].instance_counter = -1;
                 
     }
 
@@ -58,7 +58,7 @@ int main(int argc, char* argv[])
     for(int i = 0; i < num_tasks; i++)
     {
         tasks[i].next_arrival_time = tasks[i].arrival_time;
-        tasks[i].instance_counter = 0;
+        tasks[i].instance_counter = -1;
     }
 
     schedulability(tasks,num_tasks,'D');

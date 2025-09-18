@@ -1,6 +1,6 @@
 #include "../include/task.h"
 #include "../include/utils.h"
-#include "../include/scheduler.h"
+#include "../include/sched_new.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <math.h>
