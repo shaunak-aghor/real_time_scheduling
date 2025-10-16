@@ -1,6 +1,7 @@
 #include "../include/priority_queue.h"
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
 
 Node* new_Node(Job* data, int priority)
 {
@@ -59,5 +60,24 @@ bool isEmpty(Node* Head)
     return(Head == NULL);
 }
 
+Node* rebuild_with_laxity(Node* Head, int current_time)
+{
 
+    // laxity = absolute_deadline - current_time - remaining_execution_time
+
+    Node* cur_node = Head;
+    Node* new_queue = NULL; // initialize
+    while(cur_node != NULL)
+    {
+        Job* cur_job = cur_node->data;
+        int laxity  = cur_job->absolute_deadline - current_time - cur_job->remaining_execution_time;
+        // push a new node that points to the same Job* (do NOT free Job)
+        new_queue = push(new_queue, cur_job, laxity);
+        Node* next = cur_node->nextnode;
+        free(cur_node); // free old node structure only
+        cur_node = next;
+    }
+
+    return new_queue;
+}
 

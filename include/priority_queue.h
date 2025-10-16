@@ -15,4 +15,5 @@ Node* push(Node* Head, Job* data, int priority);
 Job* peek(Node* Head);
 Node* pop(Node* Head);
 bool isEmpty(Node* Head);
+Node* rebuild_with_laxity(Node* Head, int current_time);
 

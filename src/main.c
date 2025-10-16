@@ -69,5 +69,20 @@ int main(int argc, char* argv[])
         plot_timeline(timeline,hyperperiod);
     }
 
+    printf("================================================================\n");
+
+    for(int i = 0; i < num_tasks; i++)
+    {
+        tasks[i].next_arrival_time = tasks[i].arrival_time;
+        tasks[i].instance_counter = -1;
+    }
+    printf("Schedule for LLF:");
+    {
+        int hyperperiod = calculate_hyperperiod(tasks, num_tasks);
+        int timeline[hyperperiod][2];
+        least_laxity_first(tasks,num_tasks,timeline);
+        plot_timeline(timeline,hyperperiod);
+    }
+
 
 }

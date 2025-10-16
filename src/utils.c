@@ -118,7 +118,7 @@ Job* allocate_job(Task* task, int cur_time)
 
     Job* job = (Job*) malloc(sizeof(Job));
     
-    job->absolute_deadline = cur_time + task->relative_deadline + task->arrival_time;
+    job->absolute_deadline = cur_time + task->relative_deadline;
     job->actual_execution_time = task->execution_time; //(rand() % (task.execution_time  + 1));
     job->job_task = task;
     job->remaining_execution_time = job->actual_execution_time;
