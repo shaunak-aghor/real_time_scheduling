@@ -76,7 +76,7 @@ int main(int argc, char* argv[])
         tasks[i].next_arrival_time = tasks[i].arrival_time;
         tasks[i].instance_counter = -1;
     }
-    printf("Schedule for LLF:");
+    printf("Schedule for LLF:\n");
     {
         int hyperperiod = calculate_hyperperiod(tasks, num_tasks);
         int timeline[hyperperiod][2];

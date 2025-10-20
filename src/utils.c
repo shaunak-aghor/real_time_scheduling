@@ -72,7 +72,7 @@ bool schedulability(Task tasks[], int num_tasks, char _type)
         double upper_bound = 1;
         if(cpu_utilization <= upper_bound)
         {
-            printf("%f>%f schedulable under EDF\n",upper_bound,cpu_utilization);
+            printf("%f>%f schedulable under EDF and LLF\n",upper_bound,cpu_utilization);
             return true;
         }
         else

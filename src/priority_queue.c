@@ -66,18 +66,18 @@ Node* rebuild_with_laxity(Node* Head, int current_time)
     // laxity = absolute_deadline - current_time - remaining_execution_time
 
     Node* cur_node = Head;
-    Node* new_queue = NULL; // initialize
+    Node* new_queue_head = NULL;
+
     while(cur_node != NULL)
     {
         Job* cur_job = cur_node->data;
-        int laxity  = cur_job->absolute_deadline - current_time - cur_job->remaining_execution_time;
-        // push a new node that points to the same Job* (do NOT free Job)
-        new_queue = push(new_queue, cur_job, laxity);
-        Node* next = cur_node->nextnode;
-        free(cur_node); // free old node structure only
-        cur_node = next;
+        Node* next_node = cur_node->nextnode;
+        int laxity = cur_job->absolute_deadline - cur_job->remaining_execution_time - current_time;
+        new_queue_head = push(new_queue_head,cur_job,laxity);
+        free(cur_node);
+        cur_node = next_node;
     }
 
-    return new_queue;
+    return new_queue_head;
 }
 
